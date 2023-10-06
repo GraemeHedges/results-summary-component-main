@@ -1,0 +1,273 @@
+// tools
+@mixin visually-hidden {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
+@mixin font-size($size: $global-base-font-size) {
+  font-size: $size;
+  font-size: calcRem($size);
+}
+
+@mixin breakpoint-min($breakpoint) {
+  /* we add 1px to the breakpoint to maintain consistent behavouir with breakpoint-max */
+  @media (min-width: calc($breakpoint + 1px)) {
+    @content;
+  }
+}
+
+@mixin breakpoint-max($breakpoint) {
+  @media (max-width: $breakpoint) {
+    @content;
+  }
+}
+
+@mixin sectionSpacing($fixed-mobile: false, $fixed-desktop: false) {
+  @if $fixed-mobile {
+    margin-bottom: $global-section-spacing-mobile;
+  } @else if $fixed-desktop {
+    margin-bottom: $global-section-spacing;
+  } @else {
+    margin-bottom: $global-section-spacing-mobile;
+
+    @include breakpoint-min($global-breakpoint-tablet) {
+      margin-bottom: $global-section-spacing;
+    }
+  }
+}
+
+@mixin sectionSpacingDirectChildren(
+  $fixed-mobile: false,
+  $fixed-desktop: false
+) {
+  > *:not(:last-child) {
+    @include sectionSpacing($fixed-mobile, $fixed-desktop);
+  }
+}
+
+@mixin contentSpacing($fixed-mobile: false, $fixed-desktop: false) {
+  @if $fixed-mobile {
+    margin-bottom: $global-content-spacing-mobile;
+  } @else if $fixed-desktop {
+    margin-bottom: $global-content-spacing;
+  } @else {
+    margin-bottom: $global-content-spacing-mobile;
+
+    @include breakpoint-min($global-breakpoint-tablet) {
+      margin-bottom: $global-content-spacing;
+    }
+  }
+}
+
+@mixin contentSpacingDirectChildren(
+  $fixed-mobile: false,
+  $fixed-desktop: false
+) {
+  > *:not(:last-child) {
+    @include contentSpacing($fixed-mobile, $fixed-desktop);
+  }
+}
+
+@mixin relatedSpacing($fixed-mobile: false, $fixed-desktop: false) {
+  @if $fixed-mobile {
+    margin-bottom: $global-related-spacing-mobile;
+  } @else if $fixed-desktop {
+    margin-bottom: $global-related-spacing;
+  } @else {
+    margin-bottom: $global-related-spacing-mobile;
+
+    @include breakpoint-min($global-breakpoint-tablet) {
+      margin-bottom: $global-related-spacing;
+    }
+  }
+}
+
+@mixin relatedSpacingDirectChildren(
+  $fixed-mobile: false,
+  $fixed-desktop: false
+) {
+  > *:not(:last-child) {
+    @include relatedSpacing($fixed-mobile, $fixed-desktop);
+  }
+}
+
+@mixin microSpacing($fixed-mobile: false, $fixed-desktop: false) {
+  @if $fixed-mobile {
+    margin-bottom: $global-micro-spacing-mobile;
+  } @else if $fixed-desktop {
+    margin-bottom: $global-micro-spacing;
+  } @else {
+    margin-bottom: $global-micro-spacing-mobile;
+
+    @include breakpoint-min($global-breakpoint-tablet) {
+      margin-bottom: $global-micro-spacing;
+    }
+  }
+}
+
+@mixin microSpacingDirectChildren($fixed-mobile: false, $fixed-desktop: false) {
+  > *:not(:last-child) {
+    @include microSpacing($fixed-mobile, $fixed-desktop);
+  }
+}
+
+@mixin padding(
+  $padding-size-desktop,
+  $padding-size-mobile,
+  $fixed-mobile: false,
+  $fixed-desktop: false,
+  $vertical: false,
+  $horizontal: false,
+  $unset-top: false,
+  $unset-right: false,
+  $unset-bottom: false,
+  $unset-left: false
+) {
+  @if ($fixed-mobile) {
+    @if ($vertical) {
+      padding: $padding-size-mobile 0;
+    } @else if ($horizontal) {
+      padding: 0 $padding-size-mobile;
+    } @else {
+      padding-top: if($unset-top, unset, $padding-size-mobile);
+      padding-right: if($unset-right, unset, $padding-size-mobile);
+      padding-bottom: if($unset-bottom, unset, $padding-size-mobile);
+      padding-left: if($unset-left, unset, $padding-size-mobile);
+    }
+  } @else if ($fixed-desktop) {
+    @if ($vertical) {
+      padding: $padding-size-desktop 0;
+    } @else if ($horizontal) {
+      padding: 0 $padding-size-desktop;
+    } @else {
+      padding-top: if($unset-top, unset, $padding-size-desktop);
+      padding-right: if($unset-right, unset, $padding-size-desktop);
+      padding-bottom: if($unset-bottom, unset, $padding-size-desktop);
+      padding-left: if($unset-left, unset, $padding-size-desktop);
+    }
+  } @else {
+    @if ($vertical) {
+      padding: $padding-size-mobile 0;
+    } @else if ($horizontal) {
+      padding: 0 $padding-size-mobile;
+    } @else {
+      padding-top: if($unset-top, unset, $padding-size-mobile);
+      padding-right: if($unset-right, unset, $padding-size-mobile);
+      padding-bottom: if($unset-bottom, unset, $padding-size-mobile);
+      padding-left: if($unset-left, unset, $padding-size-mobile);
+    }
+
+    @include breakpoint-min($global-breakpoint-tablet) {
+      @if ($vertical) {
+        padding: $padding-size-desktop 0;
+      } @else if ($horizontal) {
+        padding: 0 $padding-size-desktop;
+      } @else {
+        padding-top: if($unset-top, unset, $padding-size-desktop);
+        padding-right: if($unset-right, unset, $padding-size-desktop);
+        padding-bottom: if($unset-bottom, unset, $padding-size-desktop);
+        padding-left: if($unset-left, unset, $padding-size-desktop);
+      }
+    }
+  }
+}
+
+@mixin paddingXL(
+  $fixed-mobile: false,
+  $fixed-desktop: false,
+  $vertical: false,
+  $horizontal: false,
+  $unset-top: false,
+  $unset-right: false,
+  $unset-bottom: false,
+  $unset-left: false
+) {
+  @include padding(
+    $global-padding-xl,
+    $global-padding-xl-mobile,
+    $fixed-mobile,
+    $fixed-desktop,
+    $vertical,
+    $horizontal,
+    $unset-top,
+    $unset-right,
+    $unset-bottom,
+    $unset-left
+  );
+}
+
+@mixin paddingL(
+  $fixed-mobile: false,
+  $fixed-desktop: false,
+  $vertical: false,
+  $horizontal: false,
+  $unset-top: false,
+  $unset-right: false,
+  $unset-bottom: false,
+  $unset-left: false
+) {
+  @include padding(
+    $global-padding-l,
+    $global-padding-l-mobile,
+    $fixed-mobile,
+    $fixed-desktop,
+    $vertical,
+    $horizontal,
+    $unset-top,
+    $unset-right,
+    $unset-bottom,
+    $unset-left
+  );
+}
+
+@mixin paddingM(
+  $fixed-mobile: false,
+  $fixed-desktop: false,
+  $vertical: false,
+  $horizontal: false,
+  $unset-top: false,
+  $unset-right: false,
+  $unset-bottom: false,
+  $unset-left: false
+) {
+  @include padding(
+    $global-padding-m,
+    $global-padding-m-mobile,
+    $fixed-mobile,
+    $fixed-desktop,
+    $vertical,
+    $horizontal,
+    $unset-top,
+    $unset-right,
+    $unset-bottom,
+    $unset-left
+  );
+}
+
+@mixin paddingS(
+  $fixed-mobile: false,
+  $fixed-desktop: false,
+  $vertical: false,
+  $horizontal: false,
+  $unset-top: false,
+  $unset-right: false,
+  $unset-bottom: false,
+  $unset-left: false
+) {
+  @include padding(
+    $global-padding-s,
+    $global-padding-s-mobile,
+    $fixed-mobile,
+    $fixed-desktop,
+    $vertical,
+    $horizontal,
+    $unset-top,
+    $unset-right,
+    $unset-bottom,
+    $unset-left
+  );
+}

@@ -1,0 +1,25 @@
+//Global - Screen sizes
+$global-breakpoint-tablet: 375px !default;
+$global-breakpoint-desktop: 1440px !default;
+
+//Global - proximity / spacing rules
+$global-section-spacing: 64px !default;
+$global-section-spacing-mobile: 32px !default;
+$global-content-spacing: 32px !default;
+$global-content-spacing-mobile: 16px !default;
+$global-related-spacing: 16px !default;
+$global-related-spacing-mobile: 8px !default;
+$global-micro-spacing: 8px !default;
+$global-micro-spacing-mobile: 4px !default;
+
+$global-padding-xl: 64px !default;
+$global-padding-xl-mobile: 32px !default;
+$global-padding-l: 32px !default;
+$global-padding-l-mobile: 16px !default;
+$global-padding-m: 16px !default;
+$global-padding-m-mobile: 8px !default;
+$global-padding-s: 8px !default;
+$global-padding-s-mobile: 4px !default;
+
+// Global - typography
+$global-base-font-size: 18px !default;
